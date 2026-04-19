@@ -15,11 +15,12 @@ public:
     // Device interface
     bool read(addr_t addr, size_t len, uint8_t* data) override;
     bool write(addr_t addr, size_t len, const uint8_t* data) override;
+    addr_t base() const override;
+    addr_t size() const override;
     
     // Direct access
     uint8_t* data();
     const uint8_t* data() const;
-    size_t size() const;
     
     // Load binary data
     bool load(addr_t addr, const uint8_t* data, size_t len);

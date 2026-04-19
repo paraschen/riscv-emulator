@@ -4,16 +4,8 @@
 #include "cpu.h"
 #include "memory.h"
 #include "bus.h"
-#include "elf_loader.h"
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <elf_file>" << std::endl;
-        return 1;
-    }
-
-    std::string elf_path = argv[1];
-    
     try {
         // Create system bus
         auto bus = std::make_shared<Bus>();
@@ -25,21 +17,22 @@ int main(int argc, char* argv[]) {
         // Create CPU
         auto cpu = std::make_unique<CPU>(bus);
         
-        // Load ELF file
-        ElfLoader loader;
-        loader.load(elf_path, memory);
-        
-        // Set PC to entry point
-        cpu->set_pc(loader.get_entry_point());
+        // Set PC to standard RISC-V entry point
+        constexpr addr_t ENTRY_POINT = 0x80000000;
+        cpu->set_pc(ENTRY_POINT);
         
         std::cout << "Starting RISC-V emulation..." << std::endl;
-        std::cout << "Entry point: 0x" << std::hex << loader.get_entry_point() << std::endl;
+        std::cout << "Entry point: 0x" << std::hex << ENTRY_POINT << std::dec << std::endl;
+        std::cout << "Note: This is a stub implementation. Instructions are not executed yet." << std::endl;
         
-        // Main execution loop
-        while (true) {
+        // Main execution loop - limited to 10 steps for demo
+        for (int i = 0; i < 10; ++i) {
             cpu->step();
-            // Add breakpoint/debug checks here
+            std::cout << "Step " << i << ": PC = 0x" << std::hex << cpu->get_pc() << std::dec << std::endl;
         }
+        
+        std::cout << "Demo completed. CPU registers:" << std::endl;
+        cpu->dump_registers();
         
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;

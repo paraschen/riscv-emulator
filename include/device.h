@@ -2,6 +2,7 @@
 #define DEVICE_H
 
 #include "types.h"
+#include <cstddef>
 
 class Device {
 public:

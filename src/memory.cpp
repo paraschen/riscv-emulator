@@ -26,16 +26,20 @@ bool Memory::write(addr_t addr, size_t len, const uint8_t* data) {
     return true;
 }
 
+addr_t Memory::base() const {
+    return 0;  // Base address is handled by bus mapping
+}
+
+addr_t Memory::size() const {
+    return static_cast<addr_t>(data_.size());
+}
+
 uint8_t* Memory::data() {
     return data_.data();
 }
 
 const uint8_t* Memory::data() const {
     return data_.data();
-}
-
-size_t Memory::size() const {
-    return data_.size();
 }
 
 bool Memory::load(addr_t addr, const uint8_t* data, size_t len) {

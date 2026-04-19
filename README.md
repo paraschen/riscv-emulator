@@ -94,16 +94,9 @@ The project is ready for GitHub. To publish:
    git push -u origin main
    ```
 
-   Or use token-embedded URL:
-   ```bash
-   git push https://@github.com/paraschen/riscv-emulator.git main
-   ```
 
-3. **Alternative**: Run the setup script:
-   ```bash
-   chmod +x setup-github.sh
-   ./setup-github.sh
-   ```
+
+
 
 ## Next Steps for Development
 
